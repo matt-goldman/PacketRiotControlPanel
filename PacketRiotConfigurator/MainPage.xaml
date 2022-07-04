@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:converters="clr-namespace:PacketRiotConfigurator.Converters"
+             Title="PacketRiot Control Panel"
+             x:Class="PacketRiotConfigurator.MainPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="InvertedBool" />
+            <converters:BoolToBackgroundConverter x:Key="RunningToColor"/>
+            <converters:SecureToColorConverter x:Key="SecureToColor"/>
+            <converters:SecureToGlyphConverter x:Key="SecureToGlyph"/>
+            <converters:RedirectToGlyphConverter x:Key="RedirectToGlyph"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <VerticalStackLayout>
+        <HorizontalStackLayout HorizontalOptions="End"
+                               Margin="10"
+                               Spacing="10">
+            <Label Text="PacketRiot Control Panel"
+                   VerticalOptions="Center"
+                   VerticalTextAlignment="Center"/>
+            <Image Source="https://packetriot.com/images/banner_logo_sm.webp"/>
+        </HorizontalStackLayout>
+        <FlexLayout Direction="Row"
+                    AlignItems="Center"
+                    JustifyContent="SpaceAround"
+                    HeightRequest="400">
+            <HorizontalStackLayout Spacing="50">
+                <ImageButton WidthRequest="200"
+                         HeightRequest="200"
+                         CornerRadius="100"
+                         Command="{Binding ToggleProcessCommand}"
+                         BackgroundColor="{Binding ProcessIsRunning, Converter={StaticResource RunningToColor}}">
+                    <ImageButton.Source>
+                        <FontImageSource Glyph="{Binding ButtonGlyph}"
+                                     FontFamily="FASolid"
+                                     Size="100"
+                                     Color="White"/>
+                    </ImageButton.Source>
+                </ImageButton>
+
+                <Label Text="STOPPED"
+                   FontAttributes="Bold"
+                   FontSize="72"
+                   TextColor="OrangeRed"
+                   VerticalTextAlignment="Center"
+                   IsVisible="{Binding ProcessIsRunning, Converter={StaticResource InvertedBool}}"/>
+
+                <Label Text="RUNNING"
+                   FontAttributes="Bold"
+                   FontSize="72"
+                   TextColor="ForestGreen"
+                   VerticalTextAlignment="Center"
+                   IsVisible="{Binding ProcessIsRunning}"/>
+            </HorizontalStackLayout>
+
+            <Grid ColumnDefinitions="200,200"
+                  RowDefinitions="30,30,30,30,30">
+                
+                <!--Labels-->
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Text="Version:"/>
+
+                <Label Grid.Row="1"
+                       Grid.Column="0"
+                       Text="Hostname:"/>
+
+                <Label Grid.Row="2"
+                       Grid.Column="0"
+                       Text="Key:"/>
+
+                <Label Grid.Row="3"
+                       Grid.Column="0"
+                       Text="Server Hostname:"/>
+
+                <Label Grid.Row="4"
+                       Grid.Column="0"
+                       Text="Server Key:"/>
+
+                <!--Values-->
+                <Label Grid.Row="0"
+                       Grid.Column="1"
+                       Text="{Binding Config.version}"/>
+
+                <Label Grid.Row="1"
+                       Grid.Column="1"
+                       Text="{Binding Config.hostname}"/>
+
+                <Label Grid.Row="2"
+                       Grid.Column="1"
+                       Text="*****"/>
+
+                <Label Grid.Row="3"
+                       Grid.Column="1"
+                       Text="{Binding Config.serverHost}"/>
+
+                <Label Grid.Row="4"
+                       Grid.Column="1"
+                       Text="*****"/>
+            </Grid>
+        </FlexLayout>
+
+        <FlexLayout Direction="Row"
+                    AlignItems="Center"
+                    JustifyContent="SpaceBetween"
+                    WidthRequest="1000"
+                    HeightRequest="400"
+                    IsVisible="{Binding IsRunning}">
+            <Label Text="Initialising..."/>
+            <ActivityIndicator IsRunning="True"
+                               IsEnabled="True"/>
+        </FlexLayout>
+        
+        <CollectionView ItemsSource="{Binding Tunnels}"
+                        Margin="100">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"
+                                   ItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid ColumnDefinitions="4*, *, *, *, 4*">
+
+                        <Label Grid.Column="0"
+                               Text="{Binding domain}"
+                               FontSize="Title"/>
+
+                        <Label Grid.Column="1"
+                               Text="{Binding secure, Converter={StaticResource SecureToGlyph}}"
+                               FontFamily="FASolid"
+                               FontSize="Title"
+                               TextColor="{Binding secure, Converter={StaticResource SecureToColor}}"/>
+
+                        <Label Grid.Column="2"
+                               Text="{Binding redirect, Converter={StaticResource RedirectToGlyph}}"
+                               FontFamily="FASolid"
+                               FontSize="Title"/>
+
+                        <Label Grid.Column="3"
+                               Text="&#xf0a3;"
+                               FontFamily="FASolid"
+                               FontSize="Title"
+                               IsVisible="{Binding useLetsEnc}"/>
+
+                        <Label Grid.Column="4"
+                               Text="{Binding upstreamURL}"
+                               FontSize="Title"/>
+
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            
+        </CollectionView>
+    </VerticalStackLayout>
+
+</ContentPage>
