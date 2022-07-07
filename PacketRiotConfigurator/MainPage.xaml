@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:converters="clr-namespace:PacketRiotConfigurator.Converters"
+             x:Name="PacketriotConsole"
              x:Class="PacketRiotConfigurator.MainPage">
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -218,7 +219,7 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid ColumnDefinitions="350, 350, 50, 50, 50,50, 50"
+                            <Grid ColumnDefinitions="350, 50, 350, 50, 50, 50,50, 50"
                                   RowDefinitions="50">
 
                                 <Label Grid.Column="0"
@@ -226,25 +227,39 @@
                                        FontSize="Title"/>
 
                                 <Label Grid.Column="1"
+                                       FontFamily="FASolid"
+                                       Text="&#xf0c5;"
+                                       TextColor="#404040"
+                                       HorizontalTextAlignment="Center"
+                                       HorizontalOptions="Center"
+                                       FontSize="Title">
+                                    <Label.GestureRecognizers>
+                                        <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                              Command="{Binding Source={x:Reference PacketriotConsole}, Path=BindingContext.CopyUrlCommand}"
+                                                              CommandParameter="{Binding domain}"/>
+                                    </Label.GestureRecognizers>
+                                </Label>
+
+                                <Label Grid.Column="2"
                                        Text="{Binding upstreamURL}"
                                        HorizontalTextAlignment="Center"
                                        HorizontalOptions="Center"
                                        FontSize="Title"/>
 
-                                <Label Grid.Column="2"
+                                <Label Grid.Column="3"
                                        Text="{Binding secure, Converter={StaticResource SecureToGlyph}}"
                                        FontFamily="FASolid"
                                        FontSize="Title"
                                        TextColor="{Binding secure, Converter={StaticResource SecureToColor}}"/>
 
-                                <Label Grid.Column="3"
+                                <Label Grid.Column="4"
                                        Text="{Binding redirect, Converter={StaticResource RedirectToGlyph}}"
                                        FontFamily="FASolid"
                                        HorizontalTextAlignment="Center"
                                        HorizontalOptions="Center"
                                        FontSize="Title"/>
 
-                                <Label Grid.Column="4"
+                                <Label Grid.Column="5"
                                        Text="&#xf0a3;"
                                        FontFamily="FASolid"
                                        TextColor="Gold"
@@ -253,7 +268,7 @@
                                        HorizontalOptions="Center"
                                        IsVisible="{Binding useLetsEnc}"/>
 
-                                <Label Grid.Column="5"
+                                <Label Grid.Column="6"
                                        FontFamily="FASolid"
                                        Text="&#xf044;"
                                        TextColor="#404040"
@@ -261,7 +276,7 @@
                                        HorizontalOptions="Center"
                                        FontSize="Title" />
 
-                                <Label Grid.Column="6"
+                                <Label Grid.Column="7"
                                        FontFamily="FASolid"
                                        Text="&#xf1f8;"
                                        TextColor="#861b2d"

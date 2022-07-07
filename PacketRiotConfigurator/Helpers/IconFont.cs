@@ -14,4 +14,5 @@ static class IconFont
     public const string ArrowRight = "\uf061";
     public const string Certificate = "\uf0a3";
     public const string Trash = "\uf1f8";
+    public const string Copy = "\uf0c5";
 }

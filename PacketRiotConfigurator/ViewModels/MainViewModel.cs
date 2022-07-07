@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 
@@ -136,5 +137,14 @@ public partial class MainViewModel
 		}
 
 		await _configService.SaveConfig(saveCfg);
+	}
+
+	[ICommand]
+	async Task CopyUrl(string url)
+	{
+		await Clipboard.Default.SetTextAsync(url);
+
+		var snackbar = Snackbar.Make("Copied!");
+		await snackbar.Show();
 	}
 }
