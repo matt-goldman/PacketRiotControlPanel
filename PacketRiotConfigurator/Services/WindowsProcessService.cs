@@ -12,7 +12,15 @@ public class WindowsProcessService : IProcessService
 
         if (File.Exists(ExeFilePath))
         {
-            Process.Start(ExeFilePath);
+            var procInfo = new ProcessStartInfo
+            {
+                WindowStyle = ProcessWindowStyle.Hidden,
+                //UseShellExecute = true,
+                FileName = ExeFilePath,
+                Arguments = "start"
+            };
+
+            Process.Start(procInfo);
             MessagingCenter.Send<object, bool>(this, IProcessService.ProcessStateChangeMessage, true);
         }
         else
@@ -52,6 +60,6 @@ public class WindowsProcessService : IProcessService
         }
 
         if (pktRiotProcess is not null)
-            pktRiotProcess.Kill();
+            pktRiotProcess.StandardInput.Close();
     }
 }
