@@ -15,14 +15,14 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <ContentPage.Background>
+    <!--<ContentPage.Background>
         <LinearGradientBrush EndPoint="0,1">
             <GradientStop Color="#C8C8C8"
                           Offset="0.1" />
             <GradientStop Color="#6E6E6E"
                           Offset="1.0" />
         </LinearGradientBrush>
-    </ContentPage.Background>
+    </ContentPage.Background>-->
 
     <ContentPage.MenuBarItems>
         <MenuBarItem Text="File">
@@ -104,9 +104,16 @@
                     <Label Text="Config"
                            FontSize="Title"/>
 
-                    <Border Stroke="LightGrey"
-                            StrokeThickness="1"
+                    <Border Stroke="Black"
+                            StrokeThickness="0"
+                            BackgroundColor="White"
                             StrokeShape="RoundRectangle 10">
+                        <Border.Shadow>
+                            <Shadow Brush="Black"
+                                    Offset="5,5"
+                                    Opacity="0.25"
+                                    Radius="10"/>
+                        </Border.Shadow>
                         
                         <Grid ColumnDefinitions="250,400"
                               RowDefinitions="40,40,40,40,40"
@@ -193,7 +200,7 @@
                         HeightRequest="400"
                         IsVisible="{Binding IsRunning}">
                 
-                <Label Text="Initialising..."/>
+                <Label Text="{Binding ActivityText}"/>
                 
                 <ActivityIndicator IsRunning="True"
                                    IsEnabled="True"/>
@@ -208,9 +215,18 @@
                    VerticalTextAlignment="End"
                    FontSize="Title"/>
 
-            <Border Stroke="LightGrey"
-                    StrokeThickness="1"
+            <Border Stroke="Black"
+                    StrokeThickness="0"
+                    BackgroundColor="White"
+                    WidthRequest="1000"
+                    HeightRequest="400"
                     StrokeShape="RoundRectangle 10">
+                <Border.Shadow>
+                    <Shadow Brush="Black"
+                            Offset="5,5"
+                            Opacity="0.25"
+                            Radius="10"/>
+                </Border.Shadow>
                 <CollectionView ItemsSource="{Binding Tunnels}"
                                 Margin="50">
                     <CollectionView.ItemsLayout>

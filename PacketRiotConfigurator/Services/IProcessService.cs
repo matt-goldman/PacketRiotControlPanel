@@ -18,7 +18,7 @@ public interface IProcessService
 
     Task StartProcess();
 
-    void StopProcess();
+    Task StopProcess();
 
     const string ProcessName = "pktriot";
 

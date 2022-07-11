@@ -20,7 +20,7 @@ public class WindowsProcessService : IProcessService
                 Arguments = "start"
             };
 
-            Process.Start(procInfo);
+            pktRiotProcess = Process.Start(procInfo);
             MessagingCenter.Send<object, bool>(this, IProcessService.ProcessStateChangeMessage, true);
         }
         else
@@ -47,7 +47,7 @@ public class WindowsProcessService : IProcessService
         }
     }
 
-    public void StopProcess()
+    public async Task StopProcess()
     {
         if (pktRiotProcess is null)
         {
@@ -60,6 +60,19 @@ public class WindowsProcessService : IProcessService
         }
 
         if (pktRiotProcess is not null)
-            pktRiotProcess.StandardInput.Close();
+        {
+            try
+            {
+                pktRiotProcess.Kill();
+                await pktRiotProcess.WaitForExitAsync();
+                pktRiotProcess.CloseMainWindow();
+                pktRiotProcess.Close();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
     }
 }

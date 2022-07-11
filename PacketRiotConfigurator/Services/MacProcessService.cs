@@ -7,7 +7,7 @@ public class MacProcessService : IProcessService
         throw new NotImplementedException();
     }
 
-    public void StopProcess()
+    public async Task StopProcess()
     {
         throw new NotImplementedException();
     }

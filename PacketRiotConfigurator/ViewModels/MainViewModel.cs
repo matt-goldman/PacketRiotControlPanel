@@ -23,12 +23,16 @@ public partial class MainViewModel
 	[ObservableProperty]
 	string buttonGlyph;
 
+	[ObservableProperty]
+	string activityText;
+
 	public ObservableCollection<Tunnel> Tunnels { get; set; } = new();
 
 	public MainViewModel(IProcessService processService, IConfigService configService)
 	{
 		_processService = processService;
 		_configService = configService;
+		ActivityText = "Initialising...";
 	}
 
 	public async Task Initialise()
@@ -49,9 +53,12 @@ public partial class MainViewModel
 	{
 		if (ProcessIsRunning)
 		{
+			ActivityText = "Closing...";
+			IsRunning = true;
+
 			try
 			{
-				_processService.StopProcess();
+				await _processService.StopProcess();
 				ProcessIsRunning = _processService.GetProcessIsRunning();
 				if (ProcessIsRunning)
 				{
@@ -66,6 +73,7 @@ public partial class MainViewModel
 			finally
 			{
 				SetButtonGlyph();
+				IsRunning = false;
 			}
 		}
 		else
