@@ -69,18 +69,18 @@
                     <ImageButton WidthRequest="200"
                                  HeightRequest="200"
                                  CornerRadius="100"
-                                 Command="{Binding ToggleProcessCommand}"
-                                 BackgroundColor="{Binding ProcessIsRunning, Converter={StaticResource RunningToColor}}">
+                                 Command="{Binding ToggleProcessCommand}">
                         <ImageButton.Source>
                             <FontImageSource Glyph="{Binding ButtonGlyph}"
                                              FontFamily="FASolid"
                                              Size="100"
-                                             Color="White"/>
+                                             Color="{Binding ProcessIsRunning, Converter={StaticResource RunningToColor}}"/>
                         </ImageButton.Source>
                         <ImageButton.Shadow>
                             <Shadow Brush="Black"
-                                    Offset="0,0"
-                                    Radius="5"/>
+                                    Offset="5,5"
+                                    Opacity="0.6"
+                                    Radius="30"/>
                         </ImageButton.Shadow>
                     </ImageButton>
 
