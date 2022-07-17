@@ -381,4 +381,12 @@
         <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
     </Style>
 
+    <LinearGradientBrush x:Key="ShadowGradient"
+                         EndPoint="0,1">
+        <GradientStop Color="#1e1e1e"
+                          Offset="0.1" />
+        <GradientStop Color="#000000"
+                          Offset="1.0" />
+    </LinearGradientBrush>
+
 </ResourceDictionary>

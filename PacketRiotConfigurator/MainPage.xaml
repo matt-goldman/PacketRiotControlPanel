@@ -63,21 +63,21 @@
                         JustifyContent="SpaceAround"
                         Wrap="Wrap"
                         Margin="0,50,0,0"
-                        HeightRequest="400">
+                        HeightRequest="300">
                 <HorizontalStackLayout Spacing="50">
 
-                    <ImageButton WidthRequest="200"
-                                 HeightRequest="200"
-                                 CornerRadius="100"
+                    <ImageButton WidthRequest="150"
+                                 HeightRequest="150"
+                                 CornerRadius="75"
                                  Command="{Binding ToggleProcessCommand}">
                         <ImageButton.Source>
                             <FontImageSource Glyph="{Binding ButtonGlyph}"
                                              FontFamily="FASolid"
-                                             Size="100"
+                                             Size="75"
                                              Color="{Binding ProcessIsRunning, Converter={StaticResource RunningToColor}}"/>
                         </ImageButton.Source>
                         <ImageButton.Shadow>
-                            <Shadow Brush="Black"
+                            <Shadow Brush="{StaticResource ShadowGradient}"
                                     Offset="5,5"
                                     Opacity="0.6"
                                     Radius="30"/>
@@ -86,14 +86,14 @@
 
                     <Label Text="STOPPED"
                            FontAttributes="Bold"
-                           FontSize="72"
+                           FontSize="60"
                            TextColor="OrangeRed"
                            VerticalTextAlignment="Center"
                            IsVisible="{Binding ProcessIsRunning, Converter={StaticResource InvertedBool}}"/>
 
                     <Label Text="RUNNING"
                            FontAttributes="Bold"
-                           FontSize="72"
+                           FontSize="60"
                            TextColor="ForestGreen"
                            VerticalTextAlignment="Center"
                            IsVisible="{Binding ProcessIsRunning}"/>
@@ -109,70 +109,60 @@
                             BackgroundColor="White"
                             StrokeShape="RoundRectangle 10">
                         <Border.Shadow>
-                            <Shadow Brush="Black"
+                            <Shadow Brush="{StaticResource ShadowGradient}"
                                     Offset="5,5"
                                     Opacity="0.25"
                                     Radius="10"/>
                         </Border.Shadow>
                         
-                        <Grid ColumnDefinitions="250,400"
-                              RowDefinitions="40,40,40,40,40"
+                        <Grid ColumnDefinitions="200,300"
+                              RowDefinitions="30,30,30,30,30"
                               Margin="10">
 
                             <!--Labels-->
                             <Label Grid.Row="0"
                                    Grid.Column="0"
-                                   FontSize="Medium"
                                    FontAttributes="Bold"
                                    Text="Version:"/>
 
                             <Label Grid.Row="1"
-                                   FontSize="Medium"
                                    FontAttributes="Bold"
                                    Grid.Column="0"
                                    Text="Hostname:"/>
 
                             <Label Grid.Row="2"
-                                   FontSize="Medium"
                                    FontAttributes="Bold"
                                    Grid.Column="0"
                                    Text="Key:"/>
 
                             <Label Grid.Row="3"
-                                   FontSize="Medium"
                                    FontAttributes="Bold"
                                    Grid.Column="0"
                                    Text="Server Hostname:"/>
 
                             <Label Grid.Row="4"
-                                   FontSize="Medium"
                                    FontAttributes="Bold"
                                    Grid.Column="0"
                                    Text="Server Key:"/>
 
                             <!--Values-->
                             <Label Grid.Row="0"
-                                   FontSize="Medium"
                                    Grid.Column="1"
                                    Text="{Binding Config.version}"/>
 
                             <Label Grid.Row="1"
-                                   FontSize="Medium"
                                    Grid.Column="1"
                                    Text="{Binding Config.hostname}"/>
 
                             <Label Grid.Row="2"
-                                   FontSize="Medium"
                                    Grid.Column="1"
                                    Text="*****"/>
 
                             <Label Grid.Row="3"
-                                   FontSize="Medium"
                                    Grid.Column="1"
                                    Text="{Binding Config.serverHost}"/>
 
                             <Label Grid.Row="4"
-                                   FontSize="Medium"
                                    Grid.Column="1"
                                    Text="*****"/>
 
@@ -196,8 +186,8 @@
             <FlexLayout Direction="Row"
                         AlignItems="Center"
                         JustifyContent="SpaceAround"
-                        WidthRequest="1000"
-                        HeightRequest="400"
+                        WidthRequest="750"
+                        HeightRequest="300"
                         IsVisible="{Binding IsRunning}">
                 
                 <Label Text="{Binding ActivityText}"/>
@@ -218,11 +208,11 @@
             <Border Stroke="Black"
                     StrokeThickness="0"
                     BackgroundColor="White"
-                    WidthRequest="1000"
-                    HeightRequest="400"
+                    WidthRequest="900"
+                    HeightRequest="300"
                     StrokeShape="RoundRectangle 10">
                 <Border.Shadow>
-                    <Shadow Brush="Black"
+                    <Shadow Brush="{StaticResource ShadowGradient}"
                             Offset="5,5"
                             Opacity="0.25"
                             Radius="10"/>
@@ -235,20 +225,18 @@
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <Grid ColumnDefinitions="350, 50, 350, 50, 50, 50,50, 50"
+                            <Grid ColumnDefinitions="290, 50, 230, 60, 40, 40, 40, 40"
                                   RowDefinitions="50">
 
                                 <Label Grid.Column="0"
                                        Text="{Binding domain}"
-                                       FontSize="Title"/>
+                                       FontSize="18"/>
 
                                 <Label Grid.Column="1"
                                        FontFamily="FASolid"
                                        Text="&#xf0c5;"
                                        TextColor="#404040"
-                                       HorizontalTextAlignment="Center"
-                                       HorizontalOptions="Center"
-                                       FontSize="Title">
+                                       FontSize="18">
                                     <Label.GestureRecognizers>
                                         <TapGestureRecognizer NumberOfTapsRequired="1"
                                                               Command="{Binding Source={x:Reference PacketriotConsole}, Path=BindingContext.CopyUrlCommand}"
@@ -258,47 +246,37 @@
 
                                 <Label Grid.Column="2"
                                        Text="{Binding upstreamURL}"
-                                       HorizontalTextAlignment="Center"
-                                       HorizontalOptions="Center"
-                                       FontSize="Title"/>
+                                       FontSize="18"/>
 
                                 <Label Grid.Column="3"
                                        Text="{Binding secure, Converter={StaticResource SecureToGlyph}}"
                                        FontFamily="FASolid"
-                                       FontSize="Title"
+                                       FontSize="18"
                                        TextColor="{Binding secure, Converter={StaticResource SecureToColor}}"/>
 
                                 <Label Grid.Column="4"
                                        Text="{Binding redirect, Converter={StaticResource RedirectToGlyph}}"
                                        FontFamily="FASolid"
-                                       HorizontalTextAlignment="Center"
-                                       HorizontalOptions="Center"
-                                       FontSize="Title"/>
+                                       FontSize="18"/>
 
                                 <Label Grid.Column="5"
                                        Text="&#xf0a3;"
                                        FontFamily="FASolid"
                                        TextColor="Gold"
-                                       FontSize="Title"
-                                       HorizontalTextAlignment="Center"
-                                       HorizontalOptions="Center"
+                                       FontSize="18"
                                        IsVisible="{Binding useLetsEnc}"/>
 
                                 <Label Grid.Column="6"
                                        FontFamily="FASolid"
                                        Text="&#xf044;"
                                        TextColor="#404040"
-                                       HorizontalTextAlignment="Center"
-                                       HorizontalOptions="Center"
-                                       FontSize="Title" />
+                                       FontSize="18" />
 
                                 <Label Grid.Column="7"
                                        FontFamily="FASolid"
                                        Text="&#xf1f8;"
                                        TextColor="#861b2d"
-                                       HorizontalTextAlignment="Center"
-                                       HorizontalOptions="Center"
-                                       FontSize="Title" />
+                                       FontSize="18" />
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
